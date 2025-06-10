@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function JobsListScreen() {
+export default function ProfileScreen() {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Text>Jobs list Screen</Text>
+        <Text>Profile Screen</Text>
       </View>
     </SafeAreaView>
   );
