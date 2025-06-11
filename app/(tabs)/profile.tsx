@@ -18,8 +18,6 @@ export default function ProfileScreen() {
     "7f90df6e-b832-44e2-b624-3143d428001f"
   );
 
-  const userName = `${profile.firstName} ${profile.lastName}`;
-
   const sections = [
     {
       key: "email",
@@ -90,9 +88,10 @@ export default function ProfileScreen() {
       </SafeAreaView>
     );
   }
+
   return (
     <SafeAreaView style={styles.container}>
-      <Header userName={userName} />
+      <Header />
       <View style={styles.card}>
         <Avatar {...profile} />
         <Banner>

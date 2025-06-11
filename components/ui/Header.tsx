@@ -1,10 +1,12 @@
+import { RootState } from "@/app/store";
 import { StyleSheet, Text, View } from "react-native";
+import { useSelector } from "react-redux";
 
-type HeaderProps = {
-  userName: string;
-};
+export default function Header() {
+  const { profile } = useSelector((state: RootState) => state?.profile);
 
-export default function Header({ userName }: HeaderProps) {
+  const userName = `${profile.firstName} ${profile.lastName}`;
+
   return (
     <View style={styles.header}>
       <Text style={styles.headerTitle}>swipejobs</Text>
