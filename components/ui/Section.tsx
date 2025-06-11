@@ -15,17 +15,22 @@ export default function Section({
 }: SectionProps) {
   return (
     <View style={[styles.section, style]}>
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionIcon}>{icon}</Text>
-        <Text style={styles.sectionTitle}>{title}</Text>
+      <Text style={styles.sectionIcon}>{icon}</Text>
+      <View>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>{title}</Text>
+        </View>
+        {children}
       </View>
-      {children}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   section: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
     paddingVertical: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#f0f0f0",
