@@ -1,6 +1,7 @@
 import Avatar from "@/components/ui/Avatar";
 import Banner from "@/components/ui/Banner";
 import BannerContent from "@/components/ui/BannerContent";
+import Card from "@/components/ui/Card";
 import Header from "@/components/ui/Header";
 import Section from "@/components/ui/Section";
 import { useProfile } from "@/hooks/useProfile";
@@ -92,7 +93,7 @@ export default function ProfileScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
-      <View style={styles.card}>
+      <Card>
         <Avatar {...profile} />
         <Banner>
           {bannerContent.map(({ key, label, content }) => (
@@ -110,7 +111,7 @@ export default function ProfileScreen() {
             </Section>
           ))}
         </View>
-      </View>
+      </Card>
     </SafeAreaView>
   );
 }
@@ -119,19 +120,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f5f5f5",
-  },
-  card: {
-    margin: 15,
-    borderRadius: 12,
-    backgroundColor: "#ffffff",
-    shadowColor: "#000000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
   },
   sectionContent: {
     color: "#000000",
