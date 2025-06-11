@@ -1,13 +1,14 @@
+import { jobAcceptType } from "@/types/jobs";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 type ButtonProps = {
   label: string;
-  onPress: (type: string) => void;
-  type: string;
+  onPress: (type: jobAcceptType) => void;
+  type: jobAcceptType;
 };
 
 export default function Button({ label, onPress, type }: ButtonProps) {
-  const handlePress = (type: string) => {
+  const handlePress = (type: jobAcceptType) => {
     onPress(type);
   };
   return (
@@ -20,7 +21,7 @@ export default function Button({ label, onPress, type }: ButtonProps) {
   );
 }
 
-const getButtonStyle = (type: string) => ({
+const getButtonStyle = (type: jobAcceptType) => ({
   ...styles.button,
   backgroundColor: type === "reject" ? "transparent" : "#000000",
 });
