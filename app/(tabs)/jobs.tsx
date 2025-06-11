@@ -2,7 +2,13 @@ import Header from "@/components/ui/Header";
 import JobCard from "@/components/ui/JobCard";
 import { useJobs } from "@/hooks/useJobs";
 import { useRouter } from "expo-router";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function JobsListScreen() {
@@ -30,14 +36,17 @@ export default function JobsListScreen() {
       </SafeAreaView>
     );
   }
+
   return (
     <SafeAreaView style={styles.container}>
       <Header />
-      <View style={{ padding: 20 }}>
-        {jobs.map((job) => (
-          <JobCard key={job.jobId} item={job} onPress={handleJobPress} />
-        ))}
-      </View>
+      <ScrollView>
+        <View style={{ padding: 20 }}>
+          {jobs.map((job) => (
+            <JobCard key={job.jobId} item={job} onPress={handleJobPress} />
+          ))}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
