@@ -63,7 +63,7 @@ export default function JobsDetails() {
   }: {
     item: { startDate: string; endDate: string };
   }) => (
-    <Text style={styles.preferenceItem}>
+    <Text style={styles.sectionContent}>
       {formatShiftDateRange(item.startDate, item.endDate)}
     </Text>
   );
@@ -91,10 +91,10 @@ export default function JobsDetails() {
       title: "Location",
       content: () => (
         <View>
-          <Text style={styles.preferenceItem}>
+          <Text style={styles.sectionContent}>
             {jobOffer.company.address.formattedAddress}
           </Text>
-          <Text style={styles.preferenceItem}>
+          <Text style={[styles.sectionContent, styles.sectionContentSmall]}>
             {jobOffer.milesToTravel.toFixed(2)} miles from your job search
             location
           </Text>
@@ -108,7 +108,7 @@ export default function JobsDetails() {
       content: () => (
         <View>
           {jobOffer?.requirements?.map((item) => (
-            <Text key={item} style={styles.preferenceItem}>
+            <Text key={item} style={styles.sectionContent}>
               - {item}
             </Text>
           ))}
@@ -120,7 +120,7 @@ export default function JobsDetails() {
       icon: PersonIcon,
       title: "Report To",
       content: () => (
-        <Text style={styles.preferenceItem}>
+        <Text style={styles.sectionContent}>
           {jobOffer.company.reportTo.name} {jobOffer.branchPhoneNumber}
         </Text>
       ),
@@ -169,9 +169,12 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
-  preferenceItem: {
+  sectionContent: {
     marginBottom: 4,
     color: "#000000",
     fontSize: 15,
+  },
+  sectionContentSmall: {
+    fontSize: 12,
   },
 });
