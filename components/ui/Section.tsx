@@ -26,7 +26,7 @@ export default function Section({
 
 const styles = StyleSheet.create({
   section: {
-    padding: 20,
+    paddingVertical: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#f0f0f0",
   },
