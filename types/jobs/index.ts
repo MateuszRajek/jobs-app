@@ -46,7 +46,7 @@ export interface AcceptanceJobResponse {
 
 export interface UseAcceptJobOfferResult {
   acceptJobOffer: (actionType: jobAcceptType) => Promise<void>;
-  data: AcceptanceJobResponse | null;
+  message: string | null;
   isLoading: boolean;
   error: string | null;
 }
