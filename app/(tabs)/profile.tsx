@@ -6,7 +6,14 @@ import Header from "@/components/ui/Header";
 import Section from "@/components/ui/Section";
 import { useProfile } from "@/hooks/useProfile";
 import React from "react";
-import { ActivityIndicator, Image, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 const LocationIcon = require("@/assets/images/location.png");
@@ -93,32 +100,33 @@ export default function ProfileScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
-      <Card>
-        <Avatar {...profile} />
-        <Banner>
-          {bannerContent.map(({ key, label, content }) => (
-            <BannerContent key={key} label={label} content={content} />
-          ))}
-        </Banner>
-        <View style={{ paddingHorizontal: 12 }}>
-          {sections.map(({ key, icon, title, content }) => (
-            <Section
-              key={key}
-              icon={<Image source={icon} style={styles.sectionIcon} />}
-              title={title}
-            >
-              {content()}
-            </Section>
-          ))}
-        </View>
-      </Card>
+      <ScrollView>
+        <Card>
+          <Avatar {...profile} />
+          <Banner>
+            {bannerContent.map(({ key, label, content }) => (
+              <BannerContent key={key} label={label} content={content} />
+            ))}
+          </Banner>
+          <View style={{ paddingHorizontal: 12 }}>
+            {sections.map(({ key, icon, title, content }) => (
+              <Section
+                key={key}
+                icon={<Image source={icon} style={styles.sectionIcon} />}
+                title={title}
+              >
+                {content()}
+              </Section>
+            ))}
+          </View>
+        </Card>
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#f5f5f5",
   },
   sectionContent: {
