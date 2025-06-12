@@ -4,12 +4,14 @@ import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Header from "@/components/ui/Header";
 import JobDetailsHeader from "@/components/ui/JobDetailsHeader";
+import Modal from "@/components/ui/Modal";
 import Section from "@/components/ui/Section";
 import useJobAccept from "@/hooks/useJobAccept";
 import { jobAcceptType } from "@/types/jobs";
 import { useLocalSearchParams, useNavigation } from "expo-router";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   ScrollView,
@@ -31,11 +33,13 @@ const buttons = [
 ];
 
 export default function JobsDetails() {
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
   const { id } = useLocalSearchParams();
   const jobOffer = useSelector((state: RootState) =>
     state.jobs.jobs.find((job) => job.jobId === id)
   );
-  const { acceptJobOffer, data, isLoading, error } = useJobAccept({
+  const { acceptJobOffer, message, isLoading, error } = useJobAccept({
     workerId: "7f90df6e-b832-44e2-b624-3143d428001f",
     jobId: id as string,
   });
@@ -140,7 +144,12 @@ export default function JobsDetails() {
   ];
 
   const handleButtonPress = async (type: jobAcceptType) => {
-    acceptJobOffer(type);
+    toggleModalVisibility();
+    await acceptJobOffer(type);
+  };
+
+  const toggleModalVisibility = () => {
+    setIsModalVisible((prevState) => !prevState);
   };
 
   return (
@@ -188,6 +197,20 @@ export default function JobsDetails() {
           </View>
         </Card>
       </ScrollView>
+      {isModalVisible && (
+        <Modal onClose={toggleModalVisibility}>
+          {isLoading && <ActivityIndicator size="large" color="#00cc88" />}
+          {error && <Text style={styles.error}>{error}</Text>}
+          {message && <Text style={styles.message}>{message}</Text>}
+          {!isLoading && (
+            <Button
+              label="Close"
+              type="accept"
+              onPress={toggleModalVisibility}
+            />
+          )}
+        </Modal>
+      )}
     </View>
   );
 }
@@ -211,5 +234,23 @@ const styles = StyleSheet.create({
   },
   sectionContentSmall: {
     fontSize: 12,
+  },
+  modalContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "70%",
+    height: 200,
+    borderRadius: 10,
+  },
+  error: {
+    marginTop: 20,
+    color: "#ff0000",
+    fontSize: 16,
+    textAlign: "center",
+  },
+  message: {
+    fontSize: 18,
+    marginBottom: 10,
+    textAlign: "center",
   },
 });
