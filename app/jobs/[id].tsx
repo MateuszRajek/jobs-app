@@ -1,9 +1,12 @@
 import Banner from "@/components/ui/Banner";
 import BannerContent from "@/components/ui/BannerContent";
+import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Header from "@/components/ui/Header";
 import JobDetailsHeader from "@/components/ui/JobDetailsHeader";
 import Section from "@/components/ui/Section";
+import useJobAccept from "@/hooks/useJobAccept";
+import { jobAcceptType } from "@/types/jobs";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { useLayoutEffect } from "react";
 import {
@@ -22,11 +25,20 @@ const CalendarIcon = require("@/assets/images/calendar.png");
 const ToolsIcon = require("@/assets/images/tools.png");
 const PersonIcon = require("@/assets/images/user.png");
 
+const buttons = [
+  { type: "reject", label: "No Thanks" },
+  { type: "accept", label: "I'll Take it" },
+];
+
 export default function JobsDetails() {
   const { id } = useLocalSearchParams();
   const jobOffer = useSelector((state: RootState) =>
     state.jobs.jobs.find((job) => job.jobId === id)
   );
+  const { acceptJobOffer, data, isLoading, error } = useJobAccept({
+    workerId: "7f90df6e-b832-44e2-b624-3143d428001f",
+    jobId: id as string,
+  });
 
   const navigaton = useNavigation();
 
@@ -127,6 +139,10 @@ export default function JobsDetails() {
     },
   ];
 
+  const handleButtonPress = async (type: jobAcceptType) => {
+    acceptJobOffer(type);
+  };
+
   return (
     <View style={styles.container}>
       <Header />
@@ -150,6 +166,25 @@ export default function JobsDetails() {
                 {section.content()}
               </Section>
             ))}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                gap: 8,
+                marginVertical: 20,
+              }}
+            >
+              {buttons.map((button) => (
+                <Button
+                  key={button.label}
+                  label={button.label}
+                  type={button.type as jobAcceptType}
+                  onPress={() => {
+                    handleButtonPress(button.type as jobAcceptType);
+                  }}
+                />
+              ))}
+            </View>
           </View>
         </Card>
       </ScrollView>
